@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Cart Container */
+.cart {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+/* Heading */
+h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+/* Status Message */
+.status {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+button {
+  background-color: orangered;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: orangered;
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cart {
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 22px;
+  }
+
+  .status {
+      font-size: 14px;
+  }
+
+  button {
+      padding: 10px;
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart {
+      width: 95%;
+  }
+
+  h1 {
+      font-size: 20px;
+  }
+
+  .status {
+      font-size: 13px;
+  }
+
+  button {
+      padding: 12px;
+      font-size: 16px;
+  }
+}

@@ -14,5 +14,6 @@ admin.site.register(Cart)
 admin.site.register(Cartitems)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(Address)
 
 

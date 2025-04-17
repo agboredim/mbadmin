@@ -3,18 +3,25 @@ from itertools import product
 from django.db import transaction
 from rest_framework import serializers
 from  storeapp.models import *
+from rest_framework.views import APIView
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
+import logging
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ["category_id", "title", "slug"]
+        fields = ["category_id", "title", "slug", "products"]
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = [ "id", "name", "description", "category", "slug", "inventory", "price"]
+        fields = [ "id", "name", "description","image", "category", "slug", "inventory", "price"]
     
     category = CategorySerializer()
 
@@ -119,10 +126,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
+    subtotal = serializers.ReadOnlyField()
+    delivery_price = serializers.ReadOnlyField()
+    total_price = serializers.ReadOnlyField()
+
     class Meta:
         model = Order 
-        fields = ['id', "placed_at", "pending_status", "owner", "items"]
-        
+        fields = ['id', "placed_at", "pending_status", "owner", "items", "subtotal", "delivery_price", "total_price"]
+ 
 
 
 
@@ -169,3 +180,106 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["id", "name", 'bio', "picture"]
+        
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ["id", "phone_number", "street_address", "directions", "state", "city", "country", "postal_code"]
+        extra_kwargs = {"user": {"required": False}}
+
+
+User = get_user_model()
+logger = logging.getLogger(__name__)
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        try:
+            user = User.objects.get(email=value)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User with this email does not exist.")
+
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+        reset_link = f"http://127.0.0.1:5500/password_reset.html?uid={uid}&token={token}"
+        logger.info(f"Generated password reset link: {reset_link}")
+
+        try:
+            send_mail(
+                "Password Reset Request",
+                f"Click the link to reset your password: {reset_link}",
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.error(f"Failed to send email: {str(e)}")
+            raise serializers.ValidationError("Failed to send password reset email.")
+
+        return value
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    uid = serializers.CharField()
+    token = serializers.CharField()
+    password = serializers.CharField(min_length=6, write_only=True)
+
+    def validate(self, data):
+        try:
+            uid = urlsafe_base64_decode(data["uid"]).decode()
+            user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, ValueError, TypeError):
+            raise serializers.ValidationError({"uid": "Invalid or expired UID"})
+
+        if not default_token_generator.check_token(user, data["token"]):
+            raise serializers.ValidationError({"token": "Invalid or expired token"})
+
+        data["user"] = user
+        return data
+
+    def save(self):
+        user = self.validated_data["user"]
+        user.set_password(self.validated_data["password"])
+        user.save()
+        return user
+    def post(self, request, uidb64, token):
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({"error": "Invalid token or user"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validate token
+        if not default_token_generator.check_token(user, token):
+            return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validate new password
+        new_password = request.data.get("password")
+        if not new_password or len(new_password) < 6:
+            return Response({"error": "Password must be at least 6 characters long"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Set new password
+        user.set_password(new_password)
+        user.save()
+
+        return Response({"message": "Password successfully reset"}, status=status.HTTP_200_OK)
+    new_password = serializers.CharField(write_only=True)
+    uid = serializers.CharField(write_only=True)
+    token = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        try:
+            uid = urlsafe_base64_decode(data["uid"]).decode()
+            user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, ValueError):
+            raise serializers.ValidationError("Invalid reset link.")
+
+        if not default_token_generator.check_token(user, data["token"]):
+            raise serializers.ValidationError("Invalid or expired token.")
+
+        user.set_password(data["new_password"])
+        user.save()
+
+        return {"message": "Password reset successful."}

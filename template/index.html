@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'frameworks/fontawesome-free-5.15.4-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/fontawesome-free-6.0.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/Plugins/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/bootstrap/css/bootstrap.css' %}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Mb Shawarma</title>
+</head>
+<style>
+    
+</style>
+<body>
+    <section class="section">
+        <div class="header">
+        <div class="nav">
+                <img class="real" src="{% static 'img/real logo.png' %}" alt="">
+
+                <nav class="dropdownmenu">
+                    <input type="checkbox" name="" id="check">
+                    <label for="check" class="checkbtn">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </label>
+                    <ul>
+                        <li ><a href="{% url 'admin:index' %}"><b>Home</b></a></li>
+                        <li><a href=""> <b>Our server</b></a>
+                            <ul class="ag" id="submit">
+                                <li><a href="{% url 'order_list' %}"><b>Order</b></a></li>
+                                <li><a href="{% url 'address_detail' %}">View Address</a>
+                                <li><a href=" {% url 'loginpage' %} "><b>login</a></li>
+                            </ul>
+                            
+                        </li>
+                        <li><a href=""><b>Contact us</b></a></li>
+                        <li><a href=""><b>Tracker</b></a></li>
+                        <li><a href=""><b>Join Mb</b></a></li>
+                      
+                    </ul>
+                </nav>
+
+            </div>
+
+            <div class="ulc">
+                <div class="me" data-aos="zoom-in" data-aos-delay="1000" data-aos-duration="1500" >
+                    <h3 class="elit">Spacial Shawarma Bite Just The Way You Like It</h3>
+                    <h6 class="head">We seal Shawarma we used Mayonnaise,Chicken,Sausage,Pepper,Tomatoes-ketchup,Cabbage, Shawarma-Bread we did our Best Work and made Mb Shawarma Bite for you.</h6>
+                  <a href=""><button class="tail"><b>Order Now</b></button></a>
+                </div>
+                <div>
+                    <img class="firstimg" data-aos="zoom-in" data-aos-delay="1000" data-aos-duration="1500" src="{% static 'img/eating-contests-2-burritos.jpg' %}" alt="">
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="font">
+        
+         <div class="fit">
+            <div class="stk">
+                 
+                
+            </div>
+
+             <div class="ooooh">
+                <div style="background-image: url('{% static "img/chicken.jpg" %}');" class="ty" data-aos="fade-right" data-aos-delay="900" data-aos-duration="1100" >
+                    <h1 class="alice"><b>Chicken Shawarma</b></h1>
+                    <h1 class="choice"><b>Healthy Choice</b></h1>
+                   <a href=""> <button id="First1" class="About"><b>Order Now</b></button> </a>  
+                </div>
+                <div data-aos="fade-left" data-aos-delay="900" data-aos-duration="1100">
+                    <div id="carouselId" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselId" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselId" data-slide-to="1"></li>
+                            <li data-target="#carouselId" data-slide-to="2"></li>
+                            <li data-target="#carouselId" data-slide-to="3"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div style="background-image: url('{% static "img/download (12).jpeg" %}');" class="carousel-item active f1">
+                                <h1 class="alice"><b>Chicken Shawarma</b></h1>
+                                <h1 class=" choice"><b>Healthy Choice</b></h1>
+                                <a href=""> <button id="First1" class="out"><b>Order Now</b></button></a>
+                            </div>
+                            <div style="background-image: url('{% static "img/1.jpg" %}');" class="carousel-item f2">
+                                <h1 class="alice"><b>Chicken Barbecue</b></h1>
+                                <h1 class=" choice"><b>Healthy Choice</b></h1>
+                             <a href=""><button id="First1" class="out"><b>Order Now</b></button></a>
+                                
+                            </div>
+                            <div style="background-image: url('{% static "img/3.jpeg" %}');" class="carousel-item f3">
+                                <h1 class="alice"><b>Yoghurt Parfait</b></h1>
+                                <h1 class=" choice"><b>Healthy Choice</b></h1>
+                                <a href=""><button id="First1" class="out"><b>Order Now</b></button></a>                 
+                            </div>
+                            <div style="background-image: url('{% static "img/4.jpeg" %}');" class="carousel-item f4">
+                                <h1 class="alice"><b>Furite Smoothie</b></h1>
+                                <h1 class=" choice"><b>Healthy Choice</b></h1>
+                                <a href=""><button id="First1" class="out"><b>Order Now</b></button> </a>                 
+                            </div>
+                           
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+               
+             </div>
+            
+            <div class="warma">
+                <h1 class="line"><b>Shawarma List</b></h1>
+            </div>
+            <div class="clea" data-aos="flip-left" data-aos-delay="900" data-aos-duration="1100">
+                <div class="cl">
+                    <img class="hujl" src="{% static 'img/hot.jpg' %}" alt="">
+                    <div class="">
+                    <h4 class="sau">Regular</h4>
+                    <p class="list">Chicken,Bread,Sausage,Pepper,Tomatoes-ketchup,Mayonnaise,Cabbage</p>
+                    <a href=""><button id="order"  class="first"><b>Order Now</b></button></a>
+                   </div>
+                </div>
+                <div class="cl1">
+                    <img class="hujl" src="{% static 'img/q.jpg' %}" alt="">
+                    <div class="">
+                    <h4 class="sau">Semi Medium</h4>
+                    <p class="list ">Chicken,Bread,Sausage,Pepper,Tomatoes-ketchup,Mayonnaise,Cabbage</p>
+                    <a href=""><button id="but" class="first"><b>Order Now</b></button></a>
+                   </div>
+                </div>
+                <div class="cl2">
+                    <img class="hujl" src="{% static 'img/img 30.jpg' %}" alt="">
+                    <div class="">
+                    <h4 class="sau">Medium</h4>
+                    <p class="list">Chicken,Bread,Sausage,Pepper,Tomatoes-ketchup,Mayonnaise,Cabbage</p>
+                    <a href=""><button id="but" class="first"><b>Order Now</b></button></a>
+                   </div>
+                </div>
+
+                <div class="cl2" >
+                    <img class="hujl" src="{% static 'img/download (17).jpeg' %}" alt="">
+                    <div class="">
+                    <h4 class="sau">Semi Jumbo</h4>
+                    <p class="list">Chicken,Bread,Sausage,Peper,Tomatoes-ketchup,Mayonnaise,Cabbage</p>
+                    <a href=""><button id="but" class="first"><b>Order Now</b></button></a>
+                   </div>
+                </div>
+                
+
+            </div>
+           
+
+           </div>
+           
+           <div class="footer ">
+            <div class="d-flex an">
+                <img class="logo" src="{% static 'img/real logo.png' %}" alt="">
+                <button class="butt d-flex">
+                <i class="fa fa-map-marker text-dark true" aria-hidden="true"></i>
+                <h6 class="text">Lagos State Nigeria</h6>
+                </button>   
+            </div>
+
+
+            <hr class="hr">
+
+            <div class="mt-4 kj">
+                <div>
+                    <h2 class="locat">LOCATIONS:</h2>
+                </div>
+
+                <div>
+                    <p class="sobo1">154/156 Sobo bustop,Akowonjo Road Egbda, opposite immigration office.</p>
+                </div>
+
+                <div>
+                    <p class="sobo">Plot 1 Olufemi Ojo street, Shasha road Akowonjo Egbda.</p>
+                </div>
+                <div>
+                    <p class="sobo">Opposite Rafiu jafujo Park off Ajako Bustop Shasha Road,Akowonjo Egbda.</p>
+                </div>
+            </div>
+            
+            <div class="mt-3 kj">
+                <div>
+                <h2 class="locat">CONTACT US:</h2>
+                </div>
+                   <div class="sobo2">
+                    <p>07038985814, 08138860298.</p>
+                   </div>
+
+                    <div class="sobo">
+                    <p>09071040132, 08088922697.</p>
+                    </div>
+
+                    <div class="d-flex icons">
+                        <i class="fa fa-twitter face" aria-hidden="true"></i>
+                        <i class="fa fa-facebook face1" aria-hidden="true"></i>
+                        <i class="fa fa-instagram face1" aria-hidden="true"></i>
+                    </div>      
+                </div>
+            </div>
+            
+ 
+            </div> 
+    </section>
+
+    
+    <script src="{% static 'frameworks/bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'frameworks/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./home.js"></script>
+    <script>
+        AOS.init();
+      </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+</head>
+<body class="body">
+    
+    <div class="cart">
+        <h2 class="title">Address From</h2>
+        {% if address %}
+            <p class="only">User: {{ address.user }}</p>
+            <p class="only">Street_address: {{ address.street_address }}</p>
+            <p class="only">Phone_number: {{ address.phone_number }}</p>
+            <p class="only">State: {{ address.state }}</p>
+            <p class="only">LGA: {{ address.city }}</p>
+            <p class="only">Directions: {{ address.directions }}</p>
+        {% else %}
+            <p>No address found for this order.</p>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{% static 'frameworks/fontawesome-free-5.15.4-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/fontawesome-free-6.0.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/Plugins/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frameworks/bootstrap/css/bootstrap.css' %}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+</head>
+<body class="body">
+    <div class="cart">
+        <h1 class="title">Orders</h1>
+        
+        {% for order in orders %}
+        <a class="style" href="{% url 'order_detail' order.id %}">
+            <div class="carry">
+                <h3 class="one">Owner: {{ order.owner.email }}</h3>
+                <h4 class="two">Payment: {{ order.get_pending_status_display }}</h4>
+                <h4 class="two">Total Price: ₦{{ order.total_price|floatformat:2 }}</h4>
+                <p class="three">Time: {{ order.placed_at }}</p>
+            </div>
+        </a>
+        {% empty %}
+        <p>No orders found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

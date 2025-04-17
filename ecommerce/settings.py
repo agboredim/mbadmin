@@ -27,14 +27,13 @@ SECRET_KEY = "_e)op=dl#c3o=yf=z0_8@)nqb*@a!d5z2&7%1sv8^pp76qlbsu"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-shoppit.herokuapp.com']
-
-
-# Application definition
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
+    "django.core.mail",
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -44,7 +43,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'django_filters',
-    'djoser'
+    'djoser',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -56,14 +56,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500", 
+    "http://localhost:3000",
+    "http://127.0.0.1:5501",
+    "http://127.0.0.1:5502", 
+    "http://localhost:5502",
+]
+
 
 ROOT_URLCONF = 'ecommerce.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,11 +98,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mbshawarmabite',
+        'USER': 'postgres',
+        'PASSWORD': '292611',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 
 
 
@@ -140,8 +153,16 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR/'static'
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -149,6 +170,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'core.User'
 
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": True,
+    "SEND_CONFIRMATION_EMAIL": True,
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,  
+}
 
 
 # REST_FRAMEWORK = {
@@ -178,6 +205,14 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 }
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "agboredim095@gmail.com"
+EMAIL_HOST_PASSWORD = "xtzu luim uuvr iapu"
+
+
 
 # "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3MjMxMDM0MywiaWF0IjoxNjcyMTM3NTQzLCJqdGkiOiI4ZTA2ZjFmNTZmMjg0NjdjOGUxYTczMmIwZWM3ODkwZSIsInVzZXJfaWQiOjh9.cmnXNQBWapetuPG2TQpoVNjm6NEvzT7awz-wvjPrPUg",
 #     "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcyMjIzOTQzLCJpYXQiOjE2NzIxMzc1NDMsImp0aSI6ImQxYjcxNzBiMjgyNTRlNjg4ZjgwNTM0NGViMTYzYjU5IiwidXNlcl9pZCI6OH0.garu_BNiSM5fB48TRbRMXypgECuSmt4ErveOVsynISQ"
@@ -187,3 +222,21 @@ DJOSER = {
         'user_create': "core.serializers.MyUserCreateSerializer"
     }
 }
+
+FLW_SEC_KEY = "FLWSECK_TEST-1bdb3d67a1a45801bf5fbe6f492a523e-X"
+FLW_PUB_KEY = "FLWPUBK_TEST-480cc99090c4a630afc46c5c2d29fc71-X"
+FLW_WEBHOOK_SECRET = "agboredimozating@292611"
+
+
+JAZZMIN_SETTINGS = {
+     "site_title": "Mb shawarma bite",
+     "site_logo": "../static/favicon_io/favicon.ico",
+     "copyright": "Mb shawarma site",
+     "topmenu_links":[
+          {"app": "Mb-shawarma-bite"},
+          {"name": "Support", "url": "https://chowdeck.com/store/alimosho-1/restaurants/mb-shawarma-bite", "new_window": True},
+     ],
+     "use_google_fonts_cdn": True,
+      "show_ui_builder": True,
+}
+
