@@ -25,14 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "_e)op=dl#c3o=yf=z0_8@)nqb*@a!d5z2&7%1sv8^pp76qlbsu"
+SECRET_KEY = "_e)op=dl#c3o=yf=z0_8@)nqb*@a!d5z2&7%1sv8^pp76qlbsu"
 
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -104,10 +100,16 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mbshawarmabite',
+        'USER': 'postgres',
+        'PASSWORD': '292611',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
 
 
 
