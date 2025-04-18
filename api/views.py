@@ -296,4 +296,4 @@ class PasswordResetConfirmView(APIView):
 
 def logoutpage(request):
     logout(request)
-    return redirect('loginpage')
+    return redirect('index')
