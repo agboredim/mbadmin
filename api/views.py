@@ -209,7 +209,6 @@ class ProfileViewSet(ModelViewSet):
 
         return Response("Profile created successfully", status=status.HTTP_200_OK)
 
-@login_required(login_url='loginpage')
 def index(request):
     return render(request, 'index.html',)
 
@@ -280,20 +279,21 @@ class PasswordResetConfirmView(APIView):
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-def loginpage(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, "Login successful!")
-            return redirect("index")
-        else:
-            messages.error(request, "Invalid username or password.")
-    else:
-        form = AuthenticationForm()
+# def loginpage(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             messages.success(request, "Login successful!")
+#             return redirect("index")
+#         else:
+#             messages.error(request, "Invalid username or password.")
+#     else:
+#         form = AuthenticationForm()
 
-    return render(request, "loginpage.html", {"form": form})
+#     return render(request, "loginpage.html", {"form": form})
+
 def logoutpage(request):
     logout(request)
     return redirect('loginpage')

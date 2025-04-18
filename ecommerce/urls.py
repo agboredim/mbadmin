@@ -26,7 +26,6 @@ urlpatterns = [
     path('order/', order_list, name='order_list'),
     path('order/<int:order_id>/', order_detail_view, name='order_detail'),
     path('address/', address_detail, name='address_detail'),
-    path("", loginpage, name="loginpage"),
     path('logoutpage/', views.logoutpage, name='logoutpage')
 ]
 
