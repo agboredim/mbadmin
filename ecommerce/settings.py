@@ -15,7 +15,6 @@ import os
 from datetime import timedelta
 import dj_database_url
 from decouple import config
-import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -101,11 +100,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://postgres:password@localhost:5432/mbshawarmabite',  # Fallback (local SQLite or PostgreSQL URL)
-        conn_max_age=600, 
-        ssl_require=True  
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mbshawarmabite',
+        'USER': 'postgres',
+        'PASSWORD': '292611',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 
